@@ -1,11 +1,198 @@
 ---
-import Welcome from '../components/Welcome.astro';
 import Layout from '../layouts/Layout.astro';
+import Mark from '../components/Mark.astro';
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+const title = 'Vector Labs | Software a la medida en Guatemala';
+const description =
+  'Software factory en Ciudad de Guatemala: diseñamos y construimos plataformas web, apps móviles y productos digitales a la medida. Criterio senior, entregas medibles.';
+
+const phones = [
+  { display: '+502 4236 8689', href: '+50242368689' },
+  { display: '+502 5432 8553', href: '+50254328553' },
+];
+
+const services = [
+  { n: '01', name: 'Plataformas web', text: 'Aplicaciones, portales y sistemas internos con arquitectura pensada para crecer.' },
+  { n: '02', name: 'Apps móviles', text: 'iOS y Android desde una sola base de código, sin sacrificar experiencia.' },
+  { n: '03', name: 'Producto y diseño', text: 'Descubrimiento, UX e interfaces. Definimos qué construir antes de escribir código.' },
+  { n: '04', name: 'Equipos dedicados', text: 'Ingenieros que se integran a tu equipo con la cadencia y estándares de VLabs.' },
+];
+
+const steps = [
+  { name: 'Descubrir', text: 'Entendemos el negocio, el usuario y la restricción real.' },
+  { name: 'Diseñar', text: 'Prototipos validados y una arquitectura clara.' },
+  { name: 'Construir', text: 'Sprints cortos, demos semanales, código revisado.' },
+  { name: 'Escalar', text: 'Medimos, iteramos y mantenemos lo que entregamos.' },
+];
 ---
 
-<Layout>
-	<Welcome />
+<Layout title={title} description={description}>
+  <a href="#main" class="skip">Saltar al contenido</a>
+  <header class="site-header">
+    <div class="wrap bar">
+      <a href="/" class="brand" aria-label="Vector Labs — inicio">
+        <span class="brand-mark"><Mark color="#F4F2EC" accent="#FF5A1F" /></span>
+        <span class="brand-name">vlabs</span>
+      </a>
+      <nav aria-label="Principal">
+        <a href="#servicios">Servicios</a>
+        <a href="#proceso">Proceso</a>
+        <a href="#contacto" class="nav-cta">Hablemos</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="wrap hero">
+      <div class="hero-copy">
+        <p class="eyebrow">SOFTWARE FACTORY</p>
+        <h1>Software a la medida, con dirección.</h1>
+        <p class="lead">
+          Diseñamos y construimos productos digitales para empresas que necesitan hacerlo bien la
+          primera vez. Equipos pequeños, criterio senior, entregas medibles.
+        </p>
+        <div class="actions">
+          <a href="#contacto" class="btn btn-primary">Iniciar un proyecto</a>
+          <a href="#servicios" class="btn btn-ghost">Ver servicios</a>
+        </div>
+      </div>
+      <div class="hero-art" aria-hidden="true">
+        <span class="tag tl">V → (x, y)</span>
+        <span class="tag br">VLABS / 001</span>
+        <span class="hero-mark"><Mark color="#F4F2EC" accent="#FF5A1F" /></span>
+      </div>
+    </section>
+
+    <section id="servicios" class="light" aria-labelledby="servicios-title">
+      <div class="wrap section">
+        <div class="section-head">
+          <h2 id="servicios-title">Lo que construimos.</h2>
+          <p class="eyebrow dim-light">SERVICIOS</p>
+        </div>
+        <ul class="services">
+          {services.map((s) => (
+            <li>
+              <span class="num">{s.n}</span>
+              <h3>{s.name}</h3>
+              <p>{s.text}</p>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+
+    <section id="proceso" class="wrap section" aria-labelledby="proceso-title">
+      <div class="section-head">
+        <h2 id="proceso-title">Un método, cuatro movimientos.</h2>
+        <p class="eyebrow dim-dark">PROCESO</p>
+      </div>
+      <ol class="steps">
+        {steps.map((s, i) => (
+          <li class:list={{ last: i === steps.length - 1 }}>
+            <span class="count">0{i + 1} / 04</span>
+            <div>
+              <h3>{s.name}</h3>
+              <p>{s.text}</p>
+            </div>
+          </li>
+        ))}
+      </ol>
+    </section>
+
+    <section id="contacto" class="contact" aria-labelledby="contacto-title">
+      <div class="wrap contact-inner">
+        <h2 id="contacto-title" class="big">HABLEMOS</h2>
+        <p class="lead">
+          Cuéntanos qué quieres construir. Respondemos en menos de 48 horas con una propuesta de
+          siguiente paso.
+        </p>
+        <a href="mailto:hola@vlabs.gt" class="mail">hola@vlabs.gt <span aria-hidden="true">→</span></a>
+        <ul class="phones" aria-label="Teléfonos">
+          {phones.map((p) => (
+            <li><a href={`tel:${p.href}`}>{p.display}</a></li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap foot">
+      <div class="foot-brand">
+        <span class="foot-mark"><Mark color="#8A867E" /></span>
+        <span>Vector Labs · Ciudad de Guatemala</span>
+      </div>
+      <small>© 2026 VLABS</small>
+    </div>
+  </footer>
 </Layout>
+
+<style>
+  .wrap { max-width: 1280px; margin: 0 auto; padding-inline: 32px; }
+  .section { padding-block: clamp(72px, 10vw, 128px); display: flex; flex-direction: column; gap: 56px; }
+
+  .site-header { position: sticky; top: 0; z-index: 10; background: rgba(17,17,16,.86); backdrop-filter: blur(12px); border-bottom: 1px solid var(--line); }
+  .bar { padding-block: 20px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+  .brand { display: flex; align-items: center; gap: 12px; }
+  .brand:hover { color: inherit; }
+  .brand-mark { width: 26px; height: 26px; display: block; flex: none; }
+  .brand-name { font-weight: 700; font-size: 22px; letter-spacing: -.05em; line-height: 1; }
+  nav { display: flex; align-items: center; gap: 32px; font-size: 15px; color: var(--muted); flex-wrap: wrap; }
+  .nav-cta { color: var(--bg); background: var(--fg); padding: 10px 18px; font-weight: 500; }
+  .nav-cta:hover { background: var(--accent); color: var(--bg); }
+
+  .eyebrow { margin: 0; font-family: var(--dot); font-weight: 900; font-size: 18px; letter-spacing: .12em; color: var(--accent); }
+  .eyebrow.dim-light { color: var(--dim); }
+  .eyebrow.dim-dark { color: var(--faint); }
+  .lead { margin: 0; font-size: clamp(18px, 1.6vw, 21px); line-height: 1.55; color: var(--muted); max-width: 560px; text-wrap: pretty; }
+
+  .hero { padding-block: clamp(72px, 12vw, 160px) clamp(64px, 10vw, 128px); display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 460px), 1fr)); gap: 64px; align-items: center; }
+  .hero-copy { display: flex; flex-direction: column; gap: 36px; }
+  h1 { margin: 0; font-size: clamp(48px, 6.6vw, 92px); font-weight: 600; letter-spacing: -.045em; line-height: .98; text-wrap: balance; }
+  .actions { display: flex; gap: 12px; flex-wrap: wrap; }
+  .btn { padding: 16px 26px; font-size: 16px; }
+  .btn-primary { background: var(--accent); color: var(--bg); font-weight: 600; }
+  .btn-primary:hover { background: var(--fg); color: var(--bg); }
+  .btn-ghost { border: 1px solid #3a3936; font-weight: 500; }
+  .btn-ghost:hover { border-color: var(--fg); color: var(--fg); }
+  .hero-art { justify-self: end; width: 100%; max-width: 520px; aspect-ratio: 1; border: 1px solid var(--line); display: flex; align-items: center; justify-content: center; position: relative; }
+  .tag { position: absolute; font-family: var(--mono); font-size: 12px; color: var(--faint); letter-spacing: .06em; }
+  .tl { top: 16px; left: 18px; }
+  .br { bottom: 16px; right: 18px; }
+  .hero-mark { width: 52%; height: 52%; display: block; }
+
+  .light { background: var(--fg); color: var(--bg); }
+  .section-head { display: flex; justify-content: space-between; align-items: flex-end; gap: 32px; flex-wrap: wrap; }
+  h2 { margin: 0; font-size: clamp(36px, 4.4vw, 60px); font-weight: 600; letter-spacing: -.04em; line-height: 1; max-width: 680px; text-wrap: balance; }
+  ul, ol { list-style: none; margin: 0; padding: 0; }
+  h3 { margin: 0; }
+
+  .services { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr)); border-top: 1px solid var(--bg); }
+  .services li { padding: 32px 28px 40px 0; display: flex; flex-direction: column; gap: 20px; border-bottom: 1px solid #dedad1; }
+  .num { font-family: var(--dot); font-weight: 900; font-size: 32px; color: var(--accent); }
+  .services h3 { font-size: 24px; font-weight: 600; letter-spacing: -.025em; }
+  .services p { margin: 0; font-size: 16px; line-height: 1.55; color: #57544e; }
+
+  .steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr)); border-top: 1px solid var(--line); border-left: 1px solid var(--line); }
+  .steps li { border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); padding: 32px; display: flex; flex-direction: column; gap: 48px; min-height: 260px; }
+  .count { font-family: var(--mono); font-size: 13px; color: var(--faint); letter-spacing: .06em; }
+  .steps .last .count { color: var(--accent); }
+  .steps h3 { font-size: 26px; font-weight: 600; letter-spacing: -.03em; margin-bottom: 12px; }
+  .steps p { margin: 0; font-size: 16px; line-height: 1.55; color: var(--muted); }
+
+  .contact { border-top: 1px solid var(--line); }
+  .contact-inner { padding-block: clamp(80px, 12vw, 160px); display: flex; flex-direction: column; gap: 40px; align-items: flex-start; }
+  .big { font-family: var(--dot); font-weight: 900; font-size: clamp(56px, 11vw, 160px); letter-spacing: .02em; line-height: .9; max-width: none; }
+  .mail { display: flex; align-items: center; gap: 16px; font-size: clamp(24px, 3vw, 40px); font-weight: 500; letter-spacing: -.03em; border-bottom: 2px solid var(--accent); padding-bottom: 8px; }
+  .mail span { color: var(--accent); }
+
+  .phones { display: flex; flex-wrap: wrap; gap: 12px 40px; font-family: var(--mono); font-size: clamp(18px, 2vw, 24px); letter-spacing: .02em; }
+  .phones a { border-bottom: 1px solid #3a3936; padding-bottom: 4px; }
+  .phones a:hover { border-color: var(--accent); }
+
+  footer { border-top: 1px solid var(--line); }
+  .foot { padding-block: 32px; display: flex; justify-content: space-between; align-items: center; gap: 24px; flex-wrap: wrap; font-size: 14px; color: var(--faint); }
+  .foot-brand { display: flex; align-items: center; gap: 12px; }
+  .foot-mark { width: 18px; height: 18px; display: block; flex: none; }
+  small { font-family: var(--mono); letter-spacing: .04em; font-size: 14px; }
+</style>

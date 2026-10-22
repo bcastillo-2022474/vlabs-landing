@@ -1,23 +1,134 @@
-<!doctype html>
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro Basics</title>
-	</head>
-	<body>
-		<slot />
-	</body>
-</html>
+---
+import '../styles/global.css';
+import geistUrl from '@fontsource-variable/geist/files/geist-latin-wght-normal.woff2?url';
+import dotoUrl from '@fontsource/doto/files/doto-latin-900-normal.woff2?url';
 
-<style>
-	html,
-	body {
-		margin: 0;
-		width: 100%;
-		height: 100%;
-	}
-</style>
+interface Props {
+  title: string;
+  description: string;
+  image?: string;
+  imageAlt?: string;
+  noindex?: boolean;
+}
+
+const {
+  title,
+  description,
+  image = '/og.png',
+  imageAlt = 'Vector Labs — Software a la medida, con dirección',
+  noindex = false,
+} = Astro.props;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+const ogImage = new URL(image, Astro.site);
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Organization',
+      '@id': `${Astro.site}#organization`,
+      name: 'Vector Labs',
+      alternateName: 'VLabs',
+      url: Astro.site,
+      logo: new URL('/favicon.svg', Astro.site),
+      email: 'hola@vlabs.gt',
+      telephone: '+502 4236 8689',
+      address: {
+        '@type': 'PostalAddress',
+        addressLocality: 'Ciudad de Guatemala',
+        addressCountry: 'GT',
+      },
+    },
+    {
+      '@type': 'ProfessionalService',
+      name: 'Vector Labs',
+      url: Astro.site,
+      description,
+      email: 'hola@vlabs.gt',
+      telephone: '+502 4236 8689',
+      contactPoint: ['+502 4236 8689', '+502 5432 8553'].map((telephone) => ({
+        '@type': 'ContactPoint',
+        telephone,
+        email: 'hola@vlabs.gt',
+        contactType: 'sales',
+        areaServed: 'GT',
+        availableLanguage: 'es',
+      })),
+      areaServed: 'Worldwide',
+      parentOrganization: { '@id': `${Astro.site}#organization` },
+      address: {
+        '@type': 'PostalAddress',
+        addressLocality: 'Ciudad de Guatemala',
+        addressCountry: 'GT',
+      },
+      hasOfferCatalog: {
+        '@type': 'OfferCatalog',
+        name: 'Servicios de desarrollo de software',
+        itemListElement: [
+          'Plataformas web',
+          'Apps móviles',
+          'Producto y diseño',
+          'Equipos dedicados',
+        ].map((name) => ({ '@type': 'Offer', itemOffered: { '@type': 'Service', name } })),
+      },
+    },
+    {
+      '@type': 'WebSite',
+      url: Astro.site,
+      name: 'Vector Labs',
+      inLanguage: 'es',
+      publisher: { '@id': `${Astro.site}#organization` },
+    },
+  ],
+};
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#111110" />
+    <meta
+      name="robots"
+      content={noindex ? 'noindex, nofollow' : 'index, follow, max-image-preview:large, max-snippet:-1'}
+    />
+    <meta name="author" content="Vector Labs" />
+    <meta name="color-scheme" content="dark" />
+    <link rel="canonical" href={canonical} />
+    {!noindex && <link rel="alternate" hreflang="es-GT" href={canonical} />}
+    {!noindex && <link rel="alternate" hreflang="x-default" href={canonical} />}
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" href="/favicon.ico" sizes="48x48" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Vector Labs" />
+    <meta property="og:locale" content="es_GT" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={imageAlt} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+    <meta name="twitter:image:alt" content={imageAlt} />
+
+    <link rel="preload" href={geistUrl} as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href={dotoUrl} as="font" type="font/woff2" crossorigin />
+
+    <meta name="generator" content={Astro.generator} />
+    {!noindex && <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />}
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>

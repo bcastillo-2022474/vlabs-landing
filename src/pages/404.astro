@@ -1,0 +1,18 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Página no encontrada | Vector Labs" description="La página que buscas no existe." noindex>
+  <main class="nf">
+    <p class="code">404</p>
+    <h1>Esta página no existe.</h1>
+    <a href="/">Volver al inicio →</a>
+  </main>
+</Layout>
+
+<style>
+  .nf { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; gap: 24px; padding: 32px; max-width: 1280px; margin: 0 auto; }
+  .code { margin: 0; font-family: var(--dot); font-weight: 900; font-size: clamp(80px, 16vw, 200px); line-height: .9; color: var(--accent); }
+  h1 { margin: 0; font-size: clamp(32px, 4vw, 56px); font-weight: 600; letter-spacing: -.04em; }
+  a { font-size: 20px; color: var(--muted); }
+</style>
