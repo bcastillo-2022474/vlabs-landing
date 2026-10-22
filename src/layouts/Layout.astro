@@ -21,6 +21,8 @@ const {
 const canonical = new URL(Astro.url.pathname, Astro.site);
 const ogImage = new URL(image, Astro.site);
 
+const sameAs = ['https://www.facebook.com/people/Vector-Labs/61595413003987/'];
+
 const jsonLd = {
   '@context': 'https://schema.org',
   '@graph': [
@@ -31,6 +33,7 @@ const jsonLd = {
       alternateName: 'VLabs',
       url: Astro.site,
       logo: new URL('/favicon.svg', Astro.site),
+      sameAs,
       email: 'hola@vectorlabs4u.tech',
       telephone: '+502 4236 8689',
       address: {
