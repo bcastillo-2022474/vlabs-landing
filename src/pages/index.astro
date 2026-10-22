@@ -6,9 +6,10 @@ const title = 'Vector Labs | Software a la medida en Guatemala';
 const description =
   'Software factory en Ciudad de Guatemala: diseñamos y construimos plataformas web, apps móviles y productos digitales a la medida. Criterio senior, entregas medibles.';
 
+const waText = encodeURIComponent('Hola Vector Labs, me gustaría hablar sobre un proyecto.');
 const phones = [
-  { display: '+502 4236 8689', href: '+50242368689' },
-  { display: '+502 5432 8553', href: '+50254328553' },
+  { display: '+502 4236 8689', wa: '50242368689' },
+  { display: '+502 5432 8553', wa: '50254328553' },
 ];
 
 const services = [
@@ -106,10 +107,19 @@ const steps = [
           Cuéntanos qué quieres construir. Respondemos en menos de 48 horas con una propuesta de
           siguiente paso.
         </p>
-        <a href="mailto:hola@vlabs.gt" class="mail">hola@vlabs.gt <span aria-hidden="true">→</span></a>
-        <ul class="phones" aria-label="Teléfonos">
+        <a href="mailto:hola@vectorlabs4u.tech" class="mail">hola@vectorlabs4u.tech <span aria-hidden="true">→</span></a>
+        <ul class="phones" aria-label="WhatsApp">
           {phones.map((p) => (
-            <li><a href={`tel:${p.href}`}>{p.display}</a></li>
+            <li>
+              <a
+                href={`https://wa.me/${p.wa}?text=${waText}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={`Escribir por WhatsApp al ${p.display}`}
+              >
+                {p.display}
+              </a>
+            </li>
           ))}
         </ul>
       </div>
