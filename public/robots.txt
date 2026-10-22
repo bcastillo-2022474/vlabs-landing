@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://vlabs.gt/sitemap-index.xml
+Sitemap: https://vectorlabs4u.tech/sitemap-index.xml
